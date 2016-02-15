@@ -27,7 +27,7 @@ public class PageTag extends TagSupport {
 			int pn = pagination.getTotalPages();
 			
 			StringBuilder sb = new StringBuilder();	
-			sb.append("<link href='/css/page.css' rel='stylesheet' type='text/css' />");
+			sb.append("<link href='").append(pageContext.getServletContext().getContextPath()).append("/css/page.css' rel='stylesheet' type='text/css' />");
 			if(StringUtils.isEmpty(css)){
 				css = "manu";
 			}

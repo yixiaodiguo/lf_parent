@@ -86,6 +86,7 @@ public class Pagination<T>{
 
 	public void setTotalCount(long totalCount) {
 		this.totalCount = totalCount;
+		this.totalPages = (int) ((totalCount - 1) / pageSize + 1);
 	}
 
 	public int getTotalPages() {
