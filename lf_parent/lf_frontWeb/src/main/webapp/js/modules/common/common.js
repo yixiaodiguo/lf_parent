@@ -2,6 +2,7 @@ define("common/common", ["jquery"], function(require, exports, module) {
 	var $ = require("jquery");
 	var dialog = require("dialog/dialog-plus-min");
 	var common = {
+			/**１、空白字符处理*/
 			trimLeft: function(val){
 				if(!val) return "";
 				return val.replace(/^(\s+)/, "");
@@ -14,6 +15,7 @@ define("common/common", ["jquery"], function(require, exports, module) {
 				if(!val) return "";
 				return val.replace(/^\s*|\s*$/g,"");
 			},
+			/**２、弹出框处理*/
 			tip:function(msg){
 				var d = dialog({
 				    content: msg,
@@ -49,6 +51,7 @@ define("common/common", ["jquery"], function(require, exports, module) {
 				});
 				d.showModal();
 			},
+			/**３、输出验证*/
 			isWebAddress: function(url){
 				var strRegex = /^(https|http):\/\/(\w\.*)/;
 			        var re=new RegExp(strRegex);
@@ -57,7 +60,26 @@ define("common/common", ["jquery"], function(require, exports, module) {
 			        }else{
 			            return (false);
 			        }
+			},
+			/**４、分页处理*/
+			goPage: function(formID, p){
+				$("#action").val("");
+				$("#currentPage").val(p);
+				$("#"+formID).submit();
+			},
+			gotoPage: function(formID, pn){
+				$("#action").val("");
+				var gotop = $("#gotoPageNum").val();
+				if(gotop > pn){
+					$("#currentPage").val(pn);
+				}else if(gotop < 1){
+					$("#currentPage").val(1);
+				}else{
+					$("#currentPage").val(gotop);
+				}
+				$("#"+formID).submit();
 			}
+
 	}
 
 	module.exports = common;
