@@ -22,12 +22,6 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-    <attribute>
-      <description><![CDATA[css]]></description>
-      <name>css</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
     <dynamic-attributes>false</dynamic-attributes>
   </tag> 
 </taglib>

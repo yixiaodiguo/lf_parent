@@ -60,24 +60,6 @@ define("common/common", ["jquery"], function(require, exports, module) {
 			        }else{
 			            return (false);
 			        }
-			},
-			/**４、分页处理*/
-			goPage: function(formID, p){
-				$("#action").val("");
-				$("#currentPage").val(p);
-				$("#"+formID).submit();
-			},
-			gotoPage: function(formID, pn){
-				$("#action").val("");
-				var gotop = $("#gotoPageNum").val();
-				if(gotop > pn){
-					$("#currentPage").val(pn);
-				}else if(gotop < 1){
-					$("#currentPage").val(1);
-				}else{
-					$("#currentPage").val(gotop);
-				}
-				$("#"+formID).submit();
 			}
 
 	}
