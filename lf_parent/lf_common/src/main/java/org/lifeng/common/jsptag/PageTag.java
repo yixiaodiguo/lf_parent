@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.lang3.StringUtils;
 import org.lifeng.common.entity.Pagination;
 
 public class PageTag extends TagSupport {
@@ -15,13 +14,13 @@ public class PageTag extends TagSupport {
 
 	private String name;
 	private String formID;
-	private Pagination pagination;
+	private Pagination<?> pagination;
 	
 	
 	@Override
 	public int doStartTag() throws JspException {
 		try{
-			setPagination((Pagination)pageContext.getRequest().getAttribute("page"));
+			setPagination((Pagination<?>)pageContext.getRequest().getAttribute("page"));
 			int p =  pagination.getCurrentPage(); 
 			int pn = pagination.getTotalPages();
 			
@@ -146,12 +145,12 @@ public class PageTag extends TagSupport {
 	}
 
 
-	public Pagination getPagination() {
+	public Pagination<?> getPagination() {
 		return pagination;
 	}
 
 
-	public void setPagination(Pagination pagination) {
+	public void setPagination(Pagination<?> pagination) {
 		this.pagination = pagination;
 	}
 }

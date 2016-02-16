@@ -105,13 +105,11 @@ public abstract class BaseDaoImpl<M extends java.io.Serializable, PK extends jav
     }
 
 	@Override
-	@SuppressWarnings("unchecked")
     public M get(PK id) {
        return (M) getSession().get(this.entityClass, id);
     }
     
     @Override
-	@SuppressWarnings("unchecked")
 	public M load(PK id) {
 		return (M) getSession().load(entityClass, id);
 	}

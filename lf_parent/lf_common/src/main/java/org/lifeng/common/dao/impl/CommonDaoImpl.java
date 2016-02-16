@@ -46,7 +46,6 @@ public class CommonDaoImpl implements CommonDao {
         getSession().delete(model);
     }
 
-    @SuppressWarnings("unchecked")
 	public <T extends AbstractModel, PK extends Serializable> T get(Class<T> entityClass, PK id) {
         return (T) getSession().get(entityClass, id);
     }
