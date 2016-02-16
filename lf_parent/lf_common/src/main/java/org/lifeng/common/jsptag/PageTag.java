@@ -15,7 +15,6 @@ public class PageTag extends TagSupport {
 
 	private String name;
 	private String formID;
-	private String css;
 	private Pagination pagination;
 	
 	
@@ -28,11 +27,12 @@ public class PageTag extends TagSupport {
 			
 			StringBuilder sb = new StringBuilder();	
 			sb.append("<link href='").append(pageContext.getServletContext().getContextPath()).append("/css/page.css' rel='stylesheet' type='text/css' />");
-			if(StringUtils.isEmpty(css)){
-				css = "manu";
-			}
+			sb.append("<script type='text/javascript'>")
+			.append("function goPage(formID, p){document.getElementById('currentPage').value=p;document.getElementById(formID).submit();}")
+			.append("function gotoPage(formID, pn){var gotop = document.getElementById('gotoPageNum').value;if(gotop > pn){document.getElementById('currentPage').value=pn;}else if(gotop < 1){document.getElementById('currentPage').value=1;}else{document.getElementById('currentPage').value=gotop;}document.getElementById(formID).submit();}")
+			.append("</script>");
 			if(pn == 0){
-			  sb.append("<div class='").append(css).append("'>");
+			  sb.append("<div class='page'>");
 		      sb.append("<input type=\"hidden\" name=\"page.currentPage\" id=\"currentPage\" value=\"" + p+"\"/> ");
 		      sb.append("<input type=\"hidden\" name=\"page.totalPages\" id=\"totalPages\" value=\"" + pn+"\"/> ");
 		      sb.append("<input type=\"hidden\" name=\"page.totalCount\" id=\"totalCount\" value=\"" + pagination.getTotalCount()+"\"/> ");
@@ -45,7 +45,7 @@ public class PageTag extends TagSupport {
 			if(pn < p){
 		        p = pn;
 		    };
-		    sb.append("<div class='").append(css).append("'>");
+		    sb.append("<div class='page'>");
 		    if(p <= 1){
 		        p = 1;
 		        sb.append(pHtml(-10));
@@ -92,16 +92,16 @@ public class PageTag extends TagSupport {
 
 
 	private String aHtml(int p) {
-		return " <a href=\"javascript:common.goPage('"+ formID +"', "+ p +");\" class='aNum'>" + p + "</a> ";
+		return " <a href=\"javascript:goPage('"+ formID +"', "+ p +");\" class='aNum'>" + p + "</a> ";
 	}
 	
 	private String aHtml(int p, int pp) {
 		if(pp == -10){
-			return " <a href=\"javascript:common.goPage('"+ formID +"', "+ p +");\" class='preNum'>上一页</a> ";
+			return " <a href=\"javascript:goPage('"+ formID +"', "+ p +");\" class='preNum'>上一页</a> ";
 		}else if(pp == -20){
-			return " <a href=\"javascript:common.goPage('"+ formID +"', "+ p +");\" class='nextNum'>下一页</a> ";
+			return " <a href=\"javascript:goPage('"+ formID +"', "+ p +");\" class='nextNum'>下一页</a> ";
 		}else{
-			return " <a href=\"javascript:common.goPage('"+ formID +"', "+ p +");\" class='aNum'>" + p + "</a> ";
+			return " <a href=\"javascript:goPage('"+ formID +"', "+ p +");\" class='aNum'>" + p + "</a> ";
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class PageTag extends TagSupport {
 		}else if(p == -20){
 			return " <span class='nextNum'>下一页</span> ";
 		}else{
-			return " <span class='current'>" + p + "</span> ";
+			return " <span class='currentNum'>" + p + "</span> ";
 		}
 	}
 	
@@ -124,7 +124,7 @@ public class PageTag extends TagSupport {
 		if(pn<=1){
 			return "";
 		}
-		return " <span class='goPageNum'><input type=\"button\" class=\"gobtn\" value=\"GO\" onClick=\"common.gotoPage('"+ formID +"', "+ pn +")\"></input><input type=\"text\" class=\"goNum\" id=\"gotoPageNum\"  size=\"5\" maxlength=\"5\" onkeyup=\"this.value=this.value.replace(/\\D/g,'')\" />跳转到</span> ";
+		return " <span class='goPageNum'><input type=\"button\" class=\"gobtn\" value=\"GO\" onClick=\"gotoPage('"+ formID +"', "+ pn +")\"></input><input type=\"text\" class=\"goNum\" id=\"gotoPageNum\"  size=\"5\" maxlength=\"5\" onkeyup=\"this.value=this.value.replace(/\\D/g,'')\" />跳转到</span> ";
 	}
 
 	/**
@@ -154,16 +154,4 @@ public class PageTag extends TagSupport {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
-
-
-	public String getCss() {
-		return css;
-	}
-
-
-	public void setCss(String css) {
-		this.css = css;
-	}
-
-	
 }

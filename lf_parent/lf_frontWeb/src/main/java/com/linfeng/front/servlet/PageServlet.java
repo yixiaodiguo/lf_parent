@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.lifeng.common.entity.Pagination;
 
 @WebServlet("/page/list")
@@ -47,6 +49,12 @@ public class PageServlet extends HttpServlet {
 			list.add(map);
 		}
 		Pagination<Map<String, Object>> page = new Pagination<Map<String, Object>>();
+		String currPageStr = request.getParameter("page.currentPage");
+		if(StringUtils.isEmpty(currPageStr) || !NumberUtils.isNumber(currPageStr)){
+			page.setCurrentPage(1);
+		}else{
+			page.setCurrentPage(Integer.valueOf(currPageStr));
+		}
 		page.setTotalCount(20);
 		page.setItems(list);
 		request.setAttribute("page", page);

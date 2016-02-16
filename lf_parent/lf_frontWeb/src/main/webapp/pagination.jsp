@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/page/list" id="showForm" method="post">
+<form action="${ctx}/page/list" id="showForm" method="post">
 	<table>
 		<c:forEach items="${page.items }" var="o">
 			<tr>
